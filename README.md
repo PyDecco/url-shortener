@@ -67,6 +67,7 @@ src/
 
 
 ## ✅ Funcionalidades
+
 - ✅ Encurtar URLs com ou sem autenticação
 
 - ✅ Associação com usuário autenticado
@@ -78,3 +79,7 @@ src/
 - ✅ Segurança com JWT, Helmet e CORS
 
 - ✅ Validação com DTOs e class-validator
+
+## Testes Funcionais
+
+- import o arquivo json no postman com o formato `url-shortener.postman_collection.json`. Nele terá todos os endpoints cadastrados
