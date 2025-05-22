@@ -1,6 +1,11 @@
 import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
 import { PrismaService } from '../infra/database/prisma.service';
 import { nanoid } from 'nanoid';
+import { ShortUrlResponseDto } from './dtos/responses/short-url-response.dto';
+import { ShortenUrlDto } from './dtos/requests/shorten-url.dto';
+import { UserUrlDto } from './dtos/responses/user-url.dto';
+import { UpdateUrlResponseDto } from './dtos/responses/update-url-response.dto';
+import { DeleteUrlResponseDto } from './dtos/responses/delete-url-response.dto';
 
 @Injectable()
 export class ShortenerService {
@@ -23,9 +28,9 @@ export class ShortenerService {
   }
 
   // Cria uma URL encurtada
-  async createShortUrl(originalUrl: string, userId?: string) {
+  async createShortUrl(body: ShortenUrlDto, userId: string | null): Promise<ShortUrlResponseDto> {
     const shortCode = await this.generateUniqueCode();
-
+    const { originalUrl} = body;
     const record = await this.prisma.shortUrl.create({
       data: {
         originalUrl,
@@ -61,7 +66,7 @@ export class ShortenerService {
   }
 
   // Listar URLs do usuário autenticado
-  async listUserUrls(userId: string) {
+  async listUserUrls(userId: string): Promise<UserUrlDto[]> {
     return this.prisma.shortUrl.findMany({
       where: {
         userId,
@@ -72,7 +77,7 @@ export class ShortenerService {
   }
 
   // Atualizar uma URL do usuário
-  async updateUserUrl(id: string, userId: string, newUrl: string) {
+  async updateUserUrl(id: string, userId: string, newUrl: string): Promise<UpdateUrlResponseDto> {
     const record = await this.prisma.shortUrl.findFirst({
       where: { id, userId, deletedAt: null },
     });
@@ -88,7 +93,7 @@ export class ShortenerService {
   }
 
   // Soft delete de URL
-  async deleteUserUrl(id: string, userId: string) {
+  async deleteUserUrl(id: string, userId: string): Promise<DeleteUrlResponseDto> {
     const record = await this.prisma.shortUrl.findFirst({
       where: { id, userId, deletedAt: null },
     });

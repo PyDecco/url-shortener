@@ -1,7 +1,6 @@
-// shorten-url.dto.ts
 import { IsUrl } from 'class-validator';
 
 export class ShortenUrlDto {
-  @IsUrl()
+  @IsUrl({}, { message: 'originalUrl must be a valid URL' })
   originalUrl: string;
 }
