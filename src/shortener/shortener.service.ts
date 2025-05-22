@@ -11,7 +11,6 @@ import { DeleteUrlResponseDto } from './dtos/responses/delete-url-response.dto';
 export class ShortenerService {
   constructor(private readonly prisma: PrismaService) {}
 
-  // Cria um código único de até 6 caracteres
   private async generateUniqueCode(): Promise<string> {
     let code: string;
     let exists = true;
@@ -27,7 +26,6 @@ export class ShortenerService {
     return code;
   }
 
-  // Cria uma URL encurtada
   async createShortUrl(body: ShortenUrlDto, userId: string | null): Promise<ShortUrlResponseDto> {
     const shortCode = await this.generateUniqueCode();
     const { originalUrl} = body;
@@ -47,7 +45,6 @@ export class ShortenerService {
     };
   }
 
-  // Redirecionamento e contabilização de clique
   async getOriginalUrl(shortCode: string): Promise<string> {
     const record = await this.prisma.shortUrl.findUnique({
       where: { shortCode },
@@ -65,7 +62,6 @@ export class ShortenerService {
     return record.originalUrl;
   }
 
-  // Listar URLs do usuário autenticado
   async listUserUrls(userId: string): Promise<UserUrlDto[]> {
     return this.prisma.shortUrl.findMany({
       where: {
@@ -76,7 +72,6 @@ export class ShortenerService {
     });
   }
 
-  // Atualizar uma URL do usuário
   async updateUserUrl(id: string, userId: string, newUrl: string): Promise<UpdateUrlResponseDto> {
     const record = await this.prisma.shortUrl.findFirst({
       where: { id, userId, deletedAt: null },
@@ -91,8 +86,7 @@ export class ShortenerService {
       data: { originalUrl: newUrl },
     });
   }
-
-  // Soft delete de URL
+  
   async deleteUserUrl(id: string, userId: string): Promise<DeleteUrlResponseDto> {
     const record = await this.prisma.shortUrl.findFirst({
       where: { id, userId, deletedAt: null },

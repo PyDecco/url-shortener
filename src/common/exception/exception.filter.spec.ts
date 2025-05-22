@@ -1,7 +1,7 @@
-import { ExceptionFilter } from './exception.filter';
+import { AllExceptionsFilter } from './exception.filter';
 
-describe('ExceptionFilter', () => {
+describe('AllExceptionsFilter', () => {
   it('should be defined', () => {
-    expect(new ExceptionFilter()).toBeDefined();
+    expect(new AllExceptionsFilter()).toBeDefined();
   });
 });
