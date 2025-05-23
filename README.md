@@ -1,99 +1,188 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# 🔗 URL Shortener API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+API para encurtamento de URLs, com suporte a usuários autenticados, contagem de cliques, soft delete e controle de acesso.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+---
 
-## Description
+## 🚀 Tecnologias
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- [NestJS](https://nestjs.com/)
+- [Prisma ORM](https://www.prisma.io/)
+- [PostgreSQL](https://www.postgresql.org/)
+- [JWT](https://jwt.io/)
+- [nanoid](https://github.com/ai/nanoid)
 
-## Project setup
+---
+
+## 📦 Instalação
 
 ```bash
-$ npm install
+git clone https://github.com/pyDecco/url-shortener.git
+cd url-shortener
+npm install
 ```
 
-## Compile and run the project
+## ⚙️ Configuração
+
+Crie o arquivo .env baseado no `.env.example`:
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+cp .env.example .env
 ```
 
-## Run tests
+Preencha com suas informações:
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+DATABASE_URL=postgresql://postgres:postgres@localhost:5432/urlshortener
+JWT_SECRET=algumasecret
+PORT=3000
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+### Para executar localmente basta rodar 
 
 ```bash
-$ npm install -g mau
-$ mau deploy
+npm run start:dev
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+## Build e subida dos containers
 
-## Resources
+Exemplo de .env para *Docker*: !!ATENÇÃO: Existe um env para executar LOCALMENTE e um env para DOCKER
 
-Check out a few resources that may come in handy when working with NestJS:
+```bash
+DATABASE_URL=postgresql://postgres:postgres@db:5432/urlshortener
+JWT_SECRET=algumasecret
+PORT=3000
+```
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+Para subir tudo e construir a imagem da API:
 
-## Support
+```bash
+docker-compose up --build
+```
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+A API estará disponível em:
 
-## Stay in touch
+```bash
+http://localhost:3000
+```
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+Rodar migrations após subir
 
-## License
+Em outro terminal:
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+```bash
+docker-compose exec api npx prisma migrate deploy
+```
+
+Resetar ambiente (limpar tudo e começar do zero)
+
+```bash
+docker-compose down -v
+```
+
+Verificar logs
+
+```bash
+docker-compose logs -f api
+```
+
+## 🧱 Banco de Dados (PASSOS LOCALMENTE)
+
+Rode as migrations com Prisma:
+
+```bash
+npx prisma migrate dev --name init
+```
+
+## 🏁 Executando
+
+```bash
+npm run start:dev
+```
+
+A API estará disponível em:
+📍 `http://localhost:3000`
+
+## 📁 Estrutura de pastas
+
+```
+src/
+├── auth/              → Registro e login com JWT
+├── shortener/         → Encurtamento, redirecionamento e gestão
+├── common/            → Filtros globais, interceptors, etc.
+├── infra/database/    → PrismaService e conexão
+```
+
+
+## ✅ Funcionalidades
+
+- ✅ Encurtar URLs com ou sem autenticação
+
+- ✅ Associação com usuário autenticado
+
+- ✅ Redirecionamento com contagem de cliques
+
+- ✅ Soft delete e edição de URLs do próprio usuário
+
+- ✅ Segurança com JWT, Helmet e CORS
+
+- ✅ Validação com DTOs e class-validator
+
+## Testes Funcionais
+
+- import o arquivo json no postman com o formato `url-shortener.postman_collection.json`. Nele terá todos os endpoints cadastrados
+
+
+## ✅ Testes Automatizados
+
+- O projeto possui cobertura de testes unitários com Jest para os principais serviços da aplicação. Para rodar os testes:
+
+```bash
+npm run test
+```
+
+| Serviço              | Método             | Descrição                                                      |
+| -------------------- | ------------------ | -------------------------------------------------------------- |
+| **AuthService**      | `validateUser()`   | Valida e-mail/senha, retorna `null` ou usuário sem senha       |
+|                      | `login()`          | Gera token JWT válido                                          |
+|                      | `register()`       | Cria usuário e remove `password` da resposta                   |
+| **UsersService**     | `create()`         | Cria usuário se e-mail for único, ou lança `ConflictException` |
+|                      | `findByEmail()`    | Retorna usuário ou `null` pelo e-mail                          |
+| **ShortenerService** | `createShortUrl()` | Gera shortCode único e retorna URL encurtada                   |
+|                      | `getOriginalUrl()` | Retorna URL original e contabiliza clique                      |
+|                      | `listUserUrls()`   | Lista URLs ativas do usuário                                   |
+|                      | `updateUserUrl()`  | Atualiza URL do usuário, valida se pertence a ele              |
+|                      | `deleteUserUrl()`  | Realiza soft delete, valida se pertence ao usuário             |
+
+
+## 📈 Escalabilidade: Pontos de melhoria e desafios
+- Se o sistema precisar escalar horizontalmente, considere os seguintes pontos:
+
+### ✅ Melhorias recomendadas
+- Usar banco PostgreSQL gerenciado com alta disponibilidade (ex: RDS, Supabase)
+
+- Adicionar Redis para cache de redirecionamentos
+
+- Usar filas (RabbitMQ, Kafka) para registrar cliques de forma assíncrona
+
+- Implementar CDN ou cache reverso para URLs mais acessadas
+
+- Integrar Prometheus e Grafana para métricas e monitoramento
+
+- Colocar um Load Balancer para distribuir as requisições
+
+- Aplicar rate limit nos endpoints públicos
+
+- Estruturar logs com Winston + envio para ferramentas como Sentry ou Datadog
+
+### ⚠️ Principais desafios
+
+- Garantir que shortCodes continuem únicos em múltiplas instâncias
+
+- Filtrar corretamente URLs excluídas (soft delete) em todas as queries
+
+- Sincronizar métricas e logs entre instâncias
+
+- Controlar deploys sem causar inconsistência entre versões
+
+- Garantir segurança e performance sem estado compartilhado (ex: JWT sem sessão)
